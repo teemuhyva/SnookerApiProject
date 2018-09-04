@@ -1,7 +1,11 @@
-﻿using System;
+﻿using SnookerApiProject.Models;
+using SnookerApiProject.Service;
+using SnookerApiProject.UserServiceImpl;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Unity;
 
 namespace SnookerApiProject
 {
@@ -9,9 +13,10 @@ namespace SnookerApiProject
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
+            var container = new UnityContainer();
+            container.RegisterType<IUsersService, ModifyUsers>();
+            config.DependencyResolver = new UnityResolver(container);
 
-            // Web API routes
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
