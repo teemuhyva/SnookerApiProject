@@ -18,18 +18,10 @@ namespace SnookerApiProject.Controllers
             this.UserService = UserService;
         }
 
-        // GET api/<controller>
-        //dummy GET method /api/users
-        public IHttpActionResult Get() {
-
-            var response = UserService.GetUserWithName();
-
-            if(response == null) {
-                return NotFound();
-            } else {
-                return Ok(response);
-            }           
-        }
+        public IHttpActionResult Put(User user) {
+            var result = UserService.UpdateUser(user);
+            return Ok(result);
+        } 
 
         public IHttpActionResult Post(User user) {
             var result = UserService.RegisterNewUser(user);

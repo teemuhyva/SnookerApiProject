@@ -10,14 +10,6 @@ namespace SnookerApiProject.UserServiceImpl
 {
     public class ModifyUsers : IUsersService {
         readonly SnookerAppEntitie3 snookerEnt = new SnookerAppEntitie3();
-
-        public User GetUserWithName() {          
-            return new User {
-                FirstName = "Teemu",
-                LastName = "Hyvarinen",
-                NickName = "Matty"
-            };
-        }
         
         public User RegisterNewUser(User user) {
             if(user != null) {
@@ -35,16 +27,29 @@ namespace SnookerApiProject.UserServiceImpl
         }
 
         public string RemovePlayer(User user) {
-            var found = from p in snookerEnt.Players
-                        where p.nickName.Equals(user.NickName)
-                        select p;
 
-            if(found != null) {
-                snookerEnt.Entry(found).State = EntityState.Deleted;
+            var checkItem = snookerEnt.Players.SingleOrDefault(p => p.nickName == user.NickName);
+            if(checkItem != null) {
+                snookerEnt.Players.Remove(checkItem);
                 snookerEnt.SaveChanges();
             }
 
             return "removed";
+        }
+
+        public User UpdateUser(User user) {
+            var checkUser = snookerEnt.Players.SingleOrDefault(p => p.nickName == user.NickName);
+            
+            if(checkUser != null) {
+                var updatedPlayer = new Players {
+                    nickName = user.NickName
+                };
+
+                snookerEnt.Players.Add(checkUser);
+                snookerEnt.SaveChanges();
+            }
+
+            return user;
         }
     }
 }

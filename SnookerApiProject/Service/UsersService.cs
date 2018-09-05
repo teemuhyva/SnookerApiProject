@@ -7,9 +7,9 @@ using System.Web;
 namespace SnookerApiProject.Service
 {
     public interface IUsersService {
-        User GetUserWithName();
-
         User RegisterNewUser(User user);
+
+        User UpdateUser(User user);
 
         string RemovePlayer(User user);
     }

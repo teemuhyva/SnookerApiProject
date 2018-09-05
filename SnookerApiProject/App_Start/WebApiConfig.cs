@@ -15,6 +15,7 @@ namespace SnookerApiProject
         {
             var container = new UnityContainer();
             container.RegisterType<IUsersService, ModifyUsers>();
+            container.RegisterType<IFriends, FriendsServiceImpl>();
             config.DependencyResolver = new UnityResolver(container);
 
             config.MapHttpAttributeRoutes();
