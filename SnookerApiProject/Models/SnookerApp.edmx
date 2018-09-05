@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SnookerAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SnookerApp.dbo.Friends' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Friends">
+          <Key>
+            <PropertyRef Name="playerId" />
+            <PropertyRef Name="viewFriendHistory" />
+            <PropertyRef Name="viewFriendBreak" />
+          </Key>
+          <Property Name="playerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="friendFirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="friendLastName" Type="nvarchar" MaxLength="100" />
+          <Property Name="friendNick" Type="nvarchar" MaxLength="20" />
+          <Property Name="viewFriendHistory" Type="int" Nullable="false" />
+          <Property Name="viewFriendBreak" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SnookerApp.dbo.History' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="gameID" />
+            <PropertyRef Name="playerId" />
+            <PropertyRef Name="gameDate" />
+          </Key>
+          <Property Name="gameID" Type="int" Nullable="false" />
+          <Property Name="vsPlayer" Type="int" />
+          <Property Name="round" Type="int" />
+          <Property Name="playerId" Type="int" Nullable="false" />
+          <Property Name="gameDate" Type="date" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SnookerApp.dbo.PlayerProfile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PlayerProfile">
+          <Key>
+            <PropertyRef Name="isHidden" />
+            <PropertyRef Name="isPublic" />
+            <PropertyRef Name="friendsOnly" />
+            <PropertyRef Name="active" />
+          </Key>
+          <Property Name="isHidden" Type="int" Nullable="false" />
+          <Property Name="isPublic" Type="int" Nullable="false" />
+          <Property Name="friendsOnly" Type="int" Nullable="false" />
+          <Property Name="active" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Players">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstName" Type="varchar" MaxLength="50" />
+          <Property Name="lastName" Type="nvarchar" MaxLength="100" />
+          <Property Name="nickName" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SnookerApp.dbo.Statistics' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Statistics">
+          <Key>
+            <PropertyRef Name="gameDate" />
+            <PropertyRef Name="playerId" />
+          </Key>
+          <Property Name="successPots" Type="int" />
+          <Property Name="successLong" Type="int" />
+          <Property Name="successRest" Type="int" />
+          <Property Name="failedPots" Type="int" />
+          <Property Name="failedLong" Type="int" />
+          <Property Name="failedRest" Type="int" />
+          <Property Name="gameDate" Type="date" Nullable="false" />
+          <Property Name="playerId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SnookerApp.dbo.TopTenBreaks' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TopTenBreaks">
+          <Key>
+            <PropertyRef Name="breakDate" />
+            <PropertyRef Name="playerId" />
+          </Key>
+          <Property Name="breakDate" Type="date" Nullable="false" />
+          <Property Name="playerId" Type="int" Nullable="false" />
+          <Property Name="topOne" Type="int" />
+          <Property Name="topTwo" Type="int" />
+          <Property Name="topThree" Type="int" />
+          <Property Name="topFour" Type="int" />
+          <Property Name="topFive" Type="int" />
+          <Property Name="topSix" Type="int" />
+          <Property Name="topSeven" Type="int" />
+          <Property Name="topEight" Type="int" />
+          <Property Name="topNine" Type="int" />
+          <Property Name="topTen" Type="int" />
+        </EntityType>
+        <EntityContainer Name="SnookerAppModelStoreContainer">
+          <EntitySet Name="Players" EntityType="Self.Players" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Friends" EntityType="Self.Friends" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Friends].[playerId] AS [playerId], 
+    [Friends].[friendFirstName] AS [friendFirstName], 
+    [Friends].[friendLastName] AS [friendLastName], 
+    [Friends].[friendNick] AS [friendNick], 
+    [Friends].[viewFriendHistory] AS [viewFriendHistory], 
+    [Friends].[viewFriendBreak] AS [viewFriendBreak]
+    FROM [dbo].[Friends] AS [Friends]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="History" EntityType="Self.History" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [History].[gameID] AS [gameID], 
+    [History].[vsPlayer] AS [vsPlayer], 
+    [History].[round] AS [round], 
+    [History].[playerId] AS [playerId], 
+    [History].[gameDate] AS [gameDate]
+    FROM [dbo].[History] AS [History]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="PlayerProfile" EntityType="Self.PlayerProfile" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PlayerProfile].[isHidden] AS [isHidden], 
+    [PlayerProfile].[isPublic] AS [isPublic], 
+    [PlayerProfile].[friendsOnly] AS [friendsOnly], 
+    [PlayerProfile].[active] AS [active]
+    FROM [dbo].[PlayerProfile] AS [PlayerProfile]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Statistics" EntityType="Self.Statistics" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Statistics].[successPots] AS [successPots], 
+    [Statistics].[successLong] AS [successLong], 
+    [Statistics].[successRest] AS [successRest], 
+    [Statistics].[failedPots] AS [failedPots], 
+    [Statistics].[failedLong] AS [failedLong], 
+    [Statistics].[failedRest] AS [failedRest], 
+    [Statistics].[gameDate] AS [gameDate], 
+    [Statistics].[playerId] AS [playerId]
+    FROM [dbo].[Statistics] AS [Statistics]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TopTenBreaks" EntityType="Self.TopTenBreaks" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TopTenBreaks].[breakDate] AS [breakDate], 
+    [TopTenBreaks].[playerId] AS [playerId], 
+    [TopTenBreaks].[topOne] AS [topOne], 
+    [TopTenBreaks].[topTwo] AS [topTwo], 
+    [TopTenBreaks].[topThree] AS [topThree], 
+    [TopTenBreaks].[topFour] AS [topFour], 
+    [TopTenBreaks].[topFive] AS [topFive], 
+    [TopTenBreaks].[topSix] AS [topSix], 
+    [TopTenBreaks].[topSeven] AS [topSeven], 
+    [TopTenBreaks].[topEight] AS [topEight], 
+    [TopTenBreaks].[topNine] AS [topNine], 
+    [TopTenBreaks].[topTen] AS [topTen]
+    FROM [dbo].[TopTenBreaks] AS [TopTenBreaks]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SnookerAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Players">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="nickName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Friends">
+          <Key>
+            <PropertyRef Name="playerId" />
+            <PropertyRef Name="viewFriendHistory" />
+            <PropertyRef Name="viewFriendBreak" />
+          </Key>
+          <Property Name="playerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="friendFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="friendLastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="friendNick" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="viewFriendHistory" Type="Int32" Nullable="false" />
+          <Property Name="viewFriendBreak" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="gameID" />
+            <PropertyRef Name="playerId" />
+            <PropertyRef Name="gameDate" />
+          </Key>
+          <Property Name="gameID" Type="Int32" Nullable="false" />
+          <Property Name="vsPlayer" Type="Int32" />
+          <Property Name="round" Type="Int32" />
+          <Property Name="playerId" Type="Int32" Nullable="false" />
+          <Property Name="gameDate" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="PlayerProfile">
+          <Key>
+            <PropertyRef Name="isHidden" />
+            <PropertyRef Name="isPublic" />
+            <PropertyRef Name="friendsOnly" />
+            <PropertyRef Name="active" />
+          </Key>
+          <Property Name="isHidden" Type="Int32" Nullable="false" />
+          <Property Name="isPublic" Type="Int32" Nullable="false" />
+          <Property Name="friendsOnly" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Statistics">
+          <Key>
+            <PropertyRef Name="gameDate" />
+            <PropertyRef Name="playerId" />
+          </Key>
+          <Property Name="successPots" Type="Int32" />
+          <Property Name="successLong" Type="Int32" />
+          <Property Name="successRest" Type="Int32" />
+          <Property Name="failedPots" Type="Int32" />
+          <Property Name="failedLong" Type="Int32" />
+          <Property Name="failedRest" Type="Int32" />
+          <Property Name="gameDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="playerId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TopTenBreaks">
+          <Key>
+            <PropertyRef Name="breakDate" />
+            <PropertyRef Name="playerId" />
+          </Key>
+          <Property Name="breakDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="playerId" Type="Int32" Nullable="false" />
+          <Property Name="topOne" Type="Int32" />
+          <Property Name="topTwo" Type="Int32" />
+          <Property Name="topThree" Type="Int32" />
+          <Property Name="topFour" Type="Int32" />
+          <Property Name="topFive" Type="Int32" />
+          <Property Name="topSix" Type="Int32" />
+          <Property Name="topSeven" Type="Int32" />
+          <Property Name="topEight" Type="Int32" />
+          <Property Name="topNine" Type="Int32" />
+          <Property Name="topTen" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="SnookerAppEntitie3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Players" EntityType="Self.Players" />
+          <EntitySet Name="Friends" EntityType="Self.Friends" />
+          <EntitySet Name="History" EntityType="Self.History" />
+          <EntitySet Name="PlayerProfile" EntityType="Self.PlayerProfile" />
+          <EntitySet Name="Statistics" EntityType="Self.Statistics" />
+          <EntitySet Name="TopTenBreaks" EntityType="Self.TopTenBreaks" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SnookerAppModelStoreContainer" CdmEntityContainer="SnookerAppEntitie3">
+          <EntitySetMapping Name="Players">
+            <EntityTypeMapping TypeName="SnookerAppModel.Players">
+              <MappingFragment StoreEntitySet="Players">
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="nickName" ColumnName="nickName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Friends">
+            <EntityTypeMapping TypeName="SnookerAppModel.Friends">
+              <MappingFragment StoreEntitySet="Friends">
+                <ScalarProperty Name="playerId" ColumnName="playerId" />
+                <ScalarProperty Name="friendFirstName" ColumnName="friendFirstName" />
+                <ScalarProperty Name="friendLastName" ColumnName="friendLastName" />
+                <ScalarProperty Name="friendNick" ColumnName="friendNick" />
+                <ScalarProperty Name="viewFriendHistory" ColumnName="viewFriendHistory" />
+                <ScalarProperty Name="viewFriendBreak" ColumnName="viewFriendBreak" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="History">
+            <EntityTypeMapping TypeName="SnookerAppModel.History">
+              <MappingFragment StoreEntitySet="History">
+                <ScalarProperty Name="gameID" ColumnName="gameID" />
+                <ScalarProperty Name="vsPlayer" ColumnName="vsPlayer" />
+                <ScalarProperty Name="round" ColumnName="round" />
+                <ScalarProperty Name="playerId" ColumnName="playerId" />
+                <ScalarProperty Name="gameDate" ColumnName="gameDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlayerProfile">
+            <EntityTypeMapping TypeName="SnookerAppModel.PlayerProfile">
+              <MappingFragment StoreEntitySet="PlayerProfile">
+                <ScalarProperty Name="isHidden" ColumnName="isHidden" />
+                <ScalarProperty Name="isPublic" ColumnName="isPublic" />
+                <ScalarProperty Name="friendsOnly" ColumnName="friendsOnly" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Statistics">
+            <EntityTypeMapping TypeName="SnookerAppModel.Statistics">
+              <MappingFragment StoreEntitySet="Statistics">
+                <ScalarProperty Name="successPots" ColumnName="successPots" />
+                <ScalarProperty Name="successLong" ColumnName="successLong" />
+                <ScalarProperty Name="successRest" ColumnName="successRest" />
+                <ScalarProperty Name="failedPots" ColumnName="failedPots" />
+                <ScalarProperty Name="failedLong" ColumnName="failedLong" />
+                <ScalarProperty Name="failedRest" ColumnName="failedRest" />
+                <ScalarProperty Name="gameDate" ColumnName="gameDate" />
+                <ScalarProperty Name="playerId" ColumnName="playerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TopTenBreaks">
+            <EntityTypeMapping TypeName="SnookerAppModel.TopTenBreaks">
+              <MappingFragment StoreEntitySet="TopTenBreaks">
+                <ScalarProperty Name="breakDate" ColumnName="breakDate" />
+                <ScalarProperty Name="playerId" ColumnName="playerId" />
+                <ScalarProperty Name="topOne" ColumnName="topOne" />
+                <ScalarProperty Name="topTwo" ColumnName="topTwo" />
+                <ScalarProperty Name="topThree" ColumnName="topThree" />
+                <ScalarProperty Name="topFour" ColumnName="topFour" />
+                <ScalarProperty Name="topFive" ColumnName="topFive" />
+                <ScalarProperty Name="topSix" ColumnName="topSix" />
+                <ScalarProperty Name="topSeven" ColumnName="topSeven" />
+                <ScalarProperty Name="topEight" ColumnName="topEight" />
+                <ScalarProperty Name="topNine" ColumnName="topNine" />
+                <ScalarProperty Name="topTen" ColumnName="topTen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

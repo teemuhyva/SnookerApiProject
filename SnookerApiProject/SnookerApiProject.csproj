@@ -46,6 +46,12 @@
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.8.11\lib\net46\CommonServiceLocator.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNetCore.Hosting.Abstractions, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Abstractions.2.1.1\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Abstractions.dll</HintPath>
     </Reference>
@@ -94,6 +100,8 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.1\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Text.Encodings.Web, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.4.5.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
@@ -158,6 +166,16 @@
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Models\SnookerApp.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SnookerApp.edmx</DependentUpon>
+      <LastGenOutput>SnookerApp.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\SnookerApp.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SnookerApp.edmx</DependentUpon>
+      <LastGenOutput>SnookerApp.cs</LastGenOutput>
+    </Content>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +192,39 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Friends.cs">
+      <DependentUpon>SnookerApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\History.cs">
+      <DependentUpon>SnookerApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PlayerProfile.cs">
+      <DependentUpon>SnookerApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Players.cs">
+      <DependentUpon>SnookerApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SnookerApp.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SnookerApp.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SnookerApp.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SnookerApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SnookerApp.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SnookerApp.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Statistics.cs">
+      <DependentUpon>SnookerApp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TopTenBreaks.cs">
+      <DependentUpon>SnookerApp.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UnityResolver.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -181,6 +232,13 @@
     <Compile Include="UserServiceImpl\ModifyUsers.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EntityDeploy Include="Models\SnookerApp.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SnookerApp.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\SnookerApp.edmx.diagram">
+      <DependentUpon>SnookerApp.edmx</DependentUpon>
+    </Content>
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -191,6 +249,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

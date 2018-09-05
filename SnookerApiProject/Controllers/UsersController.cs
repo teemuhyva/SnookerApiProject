@@ -14,21 +14,33 @@ namespace SnookerApiProject.Controllers
 
         private readonly IUsersService UserService;
 
-        public UsersController(IUsersService UserService)
-        {
+        public UsersController(IUsersService UserService) {
             this.UserService = UserService;
         }
-        // GET api/<controller>
-        public User Get(string name)
-        {
 
-            return UserService.GetUserWithName(name);
+        // GET api/<controller>
+        //dummy GET method /api/users
+        public IHttpActionResult Get() {
+
+            var response = UserService.GetUserWithName();
+
+            if(response == null) {
+                return NotFound();
+            } else {
+                return Ok(response);
+            }           
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
-        {
-            return "value";
+        public IHttpActionResult Post(User user) {
+            var result = UserService.RegisterNewUser(user);
+
+            return Ok(result);
+        }
+
+        public IHttpActionResult Delete(User user) {
+            var del = UserService.RemovePlayer(user);
+
+            return Ok(del);
         }
     }
 }

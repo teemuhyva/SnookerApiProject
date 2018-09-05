@@ -6,8 +6,11 @@ using System.Web;
 
 namespace SnookerApiProject.Service
 {
-    public interface IUsersService
-    {
-        User GetUserWithName(string name);
+    public interface IUsersService {
+        User GetUserWithName();
+
+        User RegisterNewUser(User user);
+
+        string RemovePlayer(User user);
     }
 }
