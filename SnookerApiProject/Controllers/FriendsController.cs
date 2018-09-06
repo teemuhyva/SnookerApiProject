@@ -16,16 +16,17 @@ namespace SnookerApiProject.Controllers {
             this.FriendService = FriendService;
         }
 
-        public IHttpActionResult Get(Friend friend) {
+        public IHttpActionResult Get(Friend friend) {   
             Friend friendFound = FriendService.FindFriendByNick(friend.NickName);
 
-            Friend addedFriend = FriendService.AddToFriend(friendFound);
+            if (friendFound.FirstName == null || friendFound.LastName == null || friendFound.NickName == null) {
+                throw new Exception("friend not found");
+            }
 
-            return Ok(addedFriend);
+            Friend foundFriend = FriendService.AddToFriend(friendFound);
+
+            return Ok(foundFriend);
         }
-
-        public IEnumerable<Friend> IHttpActionResult() {
-
-        }
+        
     }
 }

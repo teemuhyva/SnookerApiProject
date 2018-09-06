@@ -8,18 +8,20 @@ using System.Web;
 namespace SnookerApiProject.UserServiceImpl {
     public class FriendsServiceImpl : IFriends {
 
-        SnookerAppEntitie3 snookerEnt = new SnookerAppEntitie3();
+        SnookerAppEntities snookerEnt = new SnookerAppEntities();
 
         public Friend FindFriendByNick(string nickName) {
-            var found = snookerEnt.Players.SingleOrDefault(p => p.nickName == nickName);
+            var found = snookerEnt.Friends.SingleOrDefault(p => p.friendNick == nickName);
+            if (found != null) {
+                var foundFriend = new Friend {
+                    FirstName = found.friendFirstName,
+                    LastName = found.friendLastName,
+                    NickName = found.friendNick
+                };
 
-            Friend foundFriend = new Friend {
-                FirstName = found.firstName,
-                LastName = found.lastName,
-                NickName = found.nickName
-            };
-
-            return foundFriend; 
+                return foundFriend;
+            }
+            return new Friend().valueOf(found);
         }
 
         public Friend AddToFriend(Friend friend) {

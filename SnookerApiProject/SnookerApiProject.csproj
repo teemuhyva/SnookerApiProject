@@ -166,15 +166,15 @@
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="Models\SnookerApp.Context.tt">
+    <Content Include="Models\SnookerApiEn.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SnookerApp.edmx</DependentUpon>
-      <LastGenOutput>SnookerApp.Context.cs</LastGenOutput>
+      <DependentUpon>SnookerApiEn.edmx</DependentUpon>
+      <LastGenOutput>SnookerApiEn.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\SnookerApp.tt">
+    <Content Include="Models\SnookerApiEn.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SnookerApp.edmx</DependentUpon>
-      <LastGenOutput>SnookerApp.cs</LastGenOutput>
+      <DependentUpon>SnookerApiEn.edmx</DependentUpon>
+      <LastGenOutput>SnookerApiEn.cs</LastGenOutput>
     </Content>
     <Content Include="Web.config" />
   </ItemGroup>
@@ -194,40 +194,37 @@
     </Compile>
     <Compile Include="Models\Friend.cs" />
     <Compile Include="Models\Friends.cs">
-      <DependentUpon>SnookerApp.tt</DependentUpon>
+      <DependentUpon>SnookerApiEn.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\History.cs">
-      <DependentUpon>SnookerApp.tt</DependentUpon>
+      <DependentUpon>SnookerApiEn.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PlayerProfile.cs">
-      <DependentUpon>SnookerApp.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Players.cs">
-      <DependentUpon>SnookerApp.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SnookerApp.Context.cs">
+    <Compile Include="Models\PlayerProfile.cs" />
+    <Compile Include="Models\SnookerApiEn.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SnookerApp.Context.tt</DependentUpon>
+      <DependentUpon>SnookerApiEn.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SnookerApp.cs">
+    <Compile Include="Models\SnookerApiEn.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SnookerApp.tt</DependentUpon>
+      <DependentUpon>SnookerApiEn.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SnookerApp.Designer.cs">
+    <Compile Include="Models\SnookerApiEn.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SnookerApp.edmx</DependentUpon>
+      <DependentUpon>SnookerApiEn.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Statistics.cs">
-      <DependentUpon>SnookerApp.tt</DependentUpon>
+      <DependentUpon>SnookerApiEn.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TopTenBreaks.cs">
-      <DependentUpon>SnookerApp.tt</DependentUpon>
+      <DependentUpon>SnookerApiEn.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UnityResolver.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserProfile.cs">
+      <DependentUpon>SnookerApiEn.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\FriendsService.cs" />
     <Compile Include="Service\UsersService.cs" />
@@ -235,12 +232,12 @@
     <Compile Include="UserServiceImpl\ModifyUsers.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Models\SnookerApp.edmx">
+    <EntityDeploy Include="Models\SnookerApiEn.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SnookerApp.Designer.cs</LastGenOutput>
+      <LastGenOutput>SnookerApiEn.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\SnookerApp.edmx.diagram">
-      <DependentUpon>SnookerApp.edmx</DependentUpon>
+    <Content Include="Models\SnookerApiEn.edmx.diagram">
+      <DependentUpon>SnookerApiEn.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
     <None Include="Web.Debug.config">

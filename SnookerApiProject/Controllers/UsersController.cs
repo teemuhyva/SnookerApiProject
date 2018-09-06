@@ -18,18 +18,27 @@ namespace SnookerApiProject.Controllers
             this.UserService = UserService;
         }
 
-        public IHttpActionResult Put(User user) {
-            var result = UserService.UpdateUser(user);
-            return Ok(result);
-        } 
-
-        public IHttpActionResult Post(User user) {
-            var result = UserService.RegisterNewUser(user);
+        public IHttpActionResult FindPlayerByNick(PlayerProfile playerProfile) {
+            var result = UserService.FindPlayerByNick(playerProfile);
 
             return Ok(result);
         }
 
-        public IHttpActionResult Delete(User user) {
+        public IHttpActionResult Put(PlayerProfile user) {
+            var result = UserService.UpdateUser(user);
+            return Ok(result);
+        } 
+
+        public IHttpActionResult Post(PlayerProfile user) {
+
+            if(!user.NickName.Equals("Quest")) {
+                user = UserService.RegisterNewUser(user);
+            } 
+            
+            return Ok(user);
+        }
+
+        public IHttpActionResult Delete(PlayerProfile user) {
             var del = UserService.RemovePlayer(user);
 
             return Ok(del);

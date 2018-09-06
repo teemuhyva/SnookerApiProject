@@ -9,47 +9,70 @@ using System.Web;
 namespace SnookerApiProject.UserServiceImpl
 {
     public class ModifyUsers : IUsersService {
-        readonly SnookerAppEntitie3 snookerEnt = new SnookerAppEntitie3();
+        readonly SnookerAppEntities snookerEnt = new SnookerAppEntities();
         
-        public User RegisterNewUser(User user) {
-            if(user != null) {
-                var newUser = new Players {
+        public PlayerProfile RegisterNewUser(PlayerProfile user) {
+            var profile = (from player in snookerEnt.UserProfile
+                             where player.nickName == user.NickName
+                             select player).FirstOrDefault();
+            if (profile == null) {
+                var newUser = new UserProfile {
                     firstName = user.FirstName,
                     lastName = user.LastName,
-                    nickName = user.NickName
+                    nickName = user.NickName,
+                    isHidden = 0,
+                    isPublic = 0,
+                    isFriendsOnly = 0
                 };
 
-                snookerEnt.Players.Add(newUser);
+                snookerEnt.UserProfile.Add(newUser);
                 snookerEnt.SaveChanges();
             }
 
             return user;
         }
 
-        public string RemovePlayer(User user) {
+        public string RemovePlayer(PlayerProfile user) {
 
-            var checkItem = snookerEnt.Players.SingleOrDefault(p => p.nickName == user.NickName);
+            var checkItem = snookerEnt.UserProfile.SingleOrDefault(p => p.nickName == user.NickName);
             if(checkItem != null) {
-                snookerEnt.Players.Remove(checkItem);
+                snookerEnt.UserProfile.Remove(checkItem);
                 snookerEnt.SaveChanges();
             }
 
             return "removed";
         }
 
-        public User UpdateUser(User user) {
-            var checkUser = snookerEnt.Players.SingleOrDefault(p => p.nickName == user.NickName);
+        public PlayerProfile UpdateUser(PlayerProfile user) {
+            var checkUser = snookerEnt.UserProfile.SingleOrDefault(p => p.nickName == user.NickName);
             
             if(checkUser != null) {
-                var updatedPlayer = new Players {
+                var updatedPlayer = new UserProfile {
                     nickName = user.NickName
                 };
 
-                snookerEnt.Players.Add(checkUser);
+                snookerEnt.UserProfile.Add(checkUser);
                 snookerEnt.SaveChanges();
             }
 
             return user;
+        }
+
+        public PlayerProfile FindPlayerByNick(PlayerProfile playerProfile) {
+
+            var found = snookerEnt.UserProfile.SingleOrDefault(p => p.nickName == playerProfile.NickName);
+            if (found != null) {
+                if(found.isPublic == 1) {
+                    playerProfile = new PlayerProfile {
+                        NickName = found.nickName
+                    };
+                return playerProfile;
+                } else {
+                    throw new Exception("Player profile not public");
+                }
+            } else {
+                throw new Exception("Player not found");
+            }
         }
     }
 }

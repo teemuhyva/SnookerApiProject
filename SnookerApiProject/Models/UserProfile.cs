@@ -12,11 +12,14 @@ namespace SnookerApiProject.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Players
+    public partial class UserProfile
     {
-        public int PersonId { get; set; }
+        public int playerId { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string nickName { get; set; }
+        public int isHidden { get; set; }
+        public int isPublic { get; set; }
+        public int isFriendsOnly { get; set; }
     }
 }

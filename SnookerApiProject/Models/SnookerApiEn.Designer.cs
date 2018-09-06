@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\matty.DESKTOP-G1BO8H6\source\repos\SnookerApiProject\SnookerApiProject\Models\SnookerApp.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\matty.DESKTOP-G1BO8H6\source\repos\SnookerApiProject\SnookerApiProject\Models\SnookerApiEn.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

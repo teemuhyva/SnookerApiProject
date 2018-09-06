@@ -10,18 +10,12 @@ warning 6002: The table/view 'SnookerApp.dbo.Friends' does not have a primary ke
         <EntityType Name="Friends">
           <Key>
             <PropertyRef Name="playerId" />
-            <PropertyRef Name="viewFriendHistory" />
-            <PropertyRef Name="viewFriendBreak" />
           </Key>
           <Property Name="playerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="friendFirstName" Type="nvarchar" MaxLength="50" />
           <Property Name="friendLastName" Type="nvarchar" MaxLength="100" />
           <Property Name="friendNick" Type="nvarchar" MaxLength="20" />
-          <Property Name="viewFriendHistory" Type="int" Nullable="false" />
-          <Property Name="viewFriendBreak" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'SnookerApp.dbo.History' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="History">
           <Key>
             <PropertyRef Name="gameID" />
@@ -34,31 +28,6 @@ warning 6002: The table/view 'SnookerApp.dbo.History' does not have a primary ke
           <Property Name="playerId" Type="int" Nullable="false" />
           <Property Name="gameDate" Type="date" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'SnookerApp.dbo.PlayerProfile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="PlayerProfile">
-          <Key>
-            <PropertyRef Name="isHidden" />
-            <PropertyRef Name="isPublic" />
-            <PropertyRef Name="friendsOnly" />
-            <PropertyRef Name="active" />
-          </Key>
-          <Property Name="isHidden" Type="int" Nullable="false" />
-          <Property Name="isPublic" Type="int" Nullable="false" />
-          <Property Name="friendsOnly" Type="int" Nullable="false" />
-          <Property Name="active" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Players">
-          <Key>
-            <PropertyRef Name="PersonId" />
-          </Key>
-          <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="firstName" Type="varchar" MaxLength="50" />
-          <Property Name="lastName" Type="nvarchar" MaxLength="100" />
-          <Property Name="nickName" Type="nvarchar" MaxLength="20" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'SnookerApp.dbo.Statistics' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Statistics">
           <Key>
             <PropertyRef Name="gameDate" />
@@ -73,8 +42,6 @@ warning 6002: The table/view 'SnookerApp.dbo.Statistics' does not have a primary
           <Property Name="gameDate" Type="date" Nullable="false" />
           <Property Name="playerId" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'SnookerApp.dbo.TopTenBreaks' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TopTenBreaks">
           <Key>
             <PropertyRef Name="breakDate" />
@@ -93,62 +60,30 @@ warning 6002: The table/view 'SnookerApp.dbo.TopTenBreaks' does not have a prima
           <Property Name="topNine" Type="int" />
           <Property Name="topTen" Type="int" />
         </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="playerId" />
+          </Key>
+          <Property Name="playerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="nickName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="isHidden" Type="int" Nullable="false" />
+          <Property Name="isPublic" Type="int" Nullable="false" />
+          <Property Name="isFriendsOnly" Type="int" Nullable="false" />
+        </EntityType>
         <EntityContainer Name="SnookerAppModelStoreContainer">
-          <EntitySet Name="Players" EntityType="Self.Players" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="History" EntityType="Self.History" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Statistics" EntityType="Self.Statistics" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TopTenBreaks" EntityType="Self.TopTenBreaks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Friends" EntityType="Self.Friends" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Friends].[playerId] AS [playerId], 
     [Friends].[friendFirstName] AS [friendFirstName], 
     [Friends].[friendLastName] AS [friendLastName], 
-    [Friends].[friendNick] AS [friendNick], 
-    [Friends].[viewFriendHistory] AS [viewFriendHistory], 
-    [Friends].[viewFriendBreak] AS [viewFriendBreak]
+    [Friends].[friendNick] AS [friendNick]
     FROM [dbo].[Friends] AS [Friends]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="History" EntityType="Self.History" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [History].[gameID] AS [gameID], 
-    [History].[vsPlayer] AS [vsPlayer], 
-    [History].[round] AS [round], 
-    [History].[playerId] AS [playerId], 
-    [History].[gameDate] AS [gameDate]
-    FROM [dbo].[History] AS [History]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="PlayerProfile" EntityType="Self.PlayerProfile" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [PlayerProfile].[isHidden] AS [isHidden], 
-    [PlayerProfile].[isPublic] AS [isPublic], 
-    [PlayerProfile].[friendsOnly] AS [friendsOnly], 
-    [PlayerProfile].[active] AS [active]
-    FROM [dbo].[PlayerProfile] AS [PlayerProfile]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Statistics" EntityType="Self.Statistics" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Statistics].[successPots] AS [successPots], 
-    [Statistics].[successLong] AS [successLong], 
-    [Statistics].[successRest] AS [successRest], 
-    [Statistics].[failedPots] AS [failedPots], 
-    [Statistics].[failedLong] AS [failedLong], 
-    [Statistics].[failedRest] AS [failedRest], 
-    [Statistics].[gameDate] AS [gameDate], 
-    [Statistics].[playerId] AS [playerId]
-    FROM [dbo].[Statistics] AS [Statistics]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="TopTenBreaks" EntityType="Self.TopTenBreaks" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [TopTenBreaks].[breakDate] AS [breakDate], 
-    [TopTenBreaks].[playerId] AS [playerId], 
-    [TopTenBreaks].[topOne] AS [topOne], 
-    [TopTenBreaks].[topTwo] AS [topTwo], 
-    [TopTenBreaks].[topThree] AS [topThree], 
-    [TopTenBreaks].[topFour] AS [topFour], 
-    [TopTenBreaks].[topFive] AS [topFive], 
-    [TopTenBreaks].[topSix] AS [topSix], 
-    [TopTenBreaks].[topSeven] AS [topSeven], 
-    [TopTenBreaks].[topEight] AS [topEight], 
-    [TopTenBreaks].[topNine] AS [topNine], 
-    [TopTenBreaks].[topTen] AS [topTen]
-    FROM [dbo].[TopTenBreaks] AS [TopTenBreaks]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
       </Schema>
@@ -156,28 +91,6 @@ warning 6002: The table/view 'SnookerApp.dbo.TopTenBreaks' does not have a prima
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SnookerAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Players">
-          <Key>
-            <PropertyRef Name="PersonId" />
-          </Key>
-          <Property Name="PersonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="lastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="nickName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Friends">
-          <Key>
-            <PropertyRef Name="playerId" />
-            <PropertyRef Name="viewFriendHistory" />
-            <PropertyRef Name="viewFriendBreak" />
-          </Key>
-          <Property Name="playerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="friendFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="friendLastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="friendNick" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="viewFriendHistory" Type="Int32" Nullable="false" />
-          <Property Name="viewFriendBreak" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="History">
           <Key>
             <PropertyRef Name="gameID" />
@@ -189,18 +102,6 @@ warning 6002: The table/view 'SnookerApp.dbo.TopTenBreaks' does not have a prima
           <Property Name="round" Type="Int32" />
           <Property Name="playerId" Type="Int32" Nullable="false" />
           <Property Name="gameDate" Type="DateTime" Nullable="false" Precision="0" />
-        </EntityType>
-        <EntityType Name="PlayerProfile">
-          <Key>
-            <PropertyRef Name="isHidden" />
-            <PropertyRef Name="isPublic" />
-            <PropertyRef Name="friendsOnly" />
-            <PropertyRef Name="active" />
-          </Key>
-          <Property Name="isHidden" Type="Int32" Nullable="false" />
-          <Property Name="isPublic" Type="Int32" Nullable="false" />
-          <Property Name="friendsOnly" Type="Int32" Nullable="false" />
-          <Property Name="active" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Statistics">
           <Key>
@@ -234,42 +135,40 @@ warning 6002: The table/view 'SnookerApp.dbo.TopTenBreaks' does not have a prima
           <Property Name="topNine" Type="Int32" />
           <Property Name="topTen" Type="Int32" />
         </EntityType>
-        <EntityContainer Name="SnookerAppEntitie3" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Players" EntityType="Self.Players" />
-          <EntitySet Name="Friends" EntityType="Self.Friends" />
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="playerId" />
+          </Key>
+          <Property Name="playerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nickName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="isHidden" Type="Int32" Nullable="false" />
+          <Property Name="isPublic" Type="Int32" Nullable="false" />
+          <Property Name="isFriendsOnly" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Friends">
+          <Key>
+            <PropertyRef Name="playerId" />
+          </Key>
+          <Property Name="playerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="friendFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="friendLastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="friendNick" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="SnookerAppEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="History" EntityType="Self.History" />
-          <EntitySet Name="PlayerProfile" EntityType="Self.PlayerProfile" />
           <EntitySet Name="Statistics" EntityType="Self.Statistics" />
           <EntitySet Name="TopTenBreaks" EntityType="Self.TopTenBreaks" />
+          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" />
+          <EntitySet Name="Friends" EntityType="Self.Friends" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SnookerAppModelStoreContainer" CdmEntityContainer="SnookerAppEntitie3">
-          <EntitySetMapping Name="Players">
-            <EntityTypeMapping TypeName="SnookerAppModel.Players">
-              <MappingFragment StoreEntitySet="Players">
-                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
-                <ScalarProperty Name="firstName" ColumnName="firstName" />
-                <ScalarProperty Name="lastName" ColumnName="lastName" />
-                <ScalarProperty Name="nickName" ColumnName="nickName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Friends">
-            <EntityTypeMapping TypeName="SnookerAppModel.Friends">
-              <MappingFragment StoreEntitySet="Friends">
-                <ScalarProperty Name="playerId" ColumnName="playerId" />
-                <ScalarProperty Name="friendFirstName" ColumnName="friendFirstName" />
-                <ScalarProperty Name="friendLastName" ColumnName="friendLastName" />
-                <ScalarProperty Name="friendNick" ColumnName="friendNick" />
-                <ScalarProperty Name="viewFriendHistory" ColumnName="viewFriendHistory" />
-                <ScalarProperty Name="viewFriendBreak" ColumnName="viewFriendBreak" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+        <EntityContainerMapping StorageEntityContainer="SnookerAppModelStoreContainer" CdmEntityContainer="SnookerAppEntities">
           <EntitySetMapping Name="History">
             <EntityTypeMapping TypeName="SnookerAppModel.History">
               <MappingFragment StoreEntitySet="History">
@@ -278,16 +177,6 @@ warning 6002: The table/view 'SnookerApp.dbo.TopTenBreaks' does not have a prima
                 <ScalarProperty Name="round" ColumnName="round" />
                 <ScalarProperty Name="playerId" ColumnName="playerId" />
                 <ScalarProperty Name="gameDate" ColumnName="gameDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PlayerProfile">
-            <EntityTypeMapping TypeName="SnookerAppModel.PlayerProfile">
-              <MappingFragment StoreEntitySet="PlayerProfile">
-                <ScalarProperty Name="isHidden" ColumnName="isHidden" />
-                <ScalarProperty Name="isPublic" ColumnName="isPublic" />
-                <ScalarProperty Name="friendsOnly" ColumnName="friendsOnly" />
-                <ScalarProperty Name="active" ColumnName="active" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -320,6 +209,29 @@ warning 6002: The table/view 'SnookerApp.dbo.TopTenBreaks' does not have a prima
                 <ScalarProperty Name="topEight" ColumnName="topEight" />
                 <ScalarProperty Name="topNine" ColumnName="topNine" />
                 <ScalarProperty Name="topTen" ColumnName="topTen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfile">
+            <EntityTypeMapping TypeName="SnookerAppModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="playerId" ColumnName="playerId" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="nickName" ColumnName="nickName" />
+                <ScalarProperty Name="isHidden" ColumnName="isHidden" />
+                <ScalarProperty Name="isPublic" ColumnName="isPublic" />
+                <ScalarProperty Name="isFriendsOnly" ColumnName="isFriendsOnly" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Friends">
+            <EntityTypeMapping TypeName="SnookerAppModel.Friends">
+              <MappingFragment StoreEntitySet="Friends">
+                <ScalarProperty Name="playerId" ColumnName="playerId" />
+                <ScalarProperty Name="friendFirstName" ColumnName="friendFirstName" />
+                <ScalarProperty Name="friendLastName" ColumnName="friendLastName" />
+                <ScalarProperty Name="friendNick" ColumnName="friendNick" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

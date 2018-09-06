@@ -7,10 +7,12 @@ using System.Web;
 namespace SnookerApiProject.Service
 {
     public interface IUsersService {
-        User RegisterNewUser(User user);
+        PlayerProfile RegisterNewUser(PlayerProfile user);
 
-        User UpdateUser(User user);
+        PlayerProfile UpdateUser(PlayerProfile user);
 
-        string RemovePlayer(User user);
+        string RemovePlayer(PlayerProfile user);
+
+        PlayerProfile FindPlayerByNick(PlayerProfile playerProfile);
     }
 }

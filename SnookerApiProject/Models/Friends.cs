@@ -18,7 +18,5 @@ namespace SnookerApiProject.Models
         public string friendFirstName { get; set; }
         public string friendLastName { get; set; }
         public string friendNick { get; set; }
-        public int viewFriendHistory { get; set; }
-        public int viewFriendBreak { get; set; }
     }
 }

@@ -11,6 +11,5 @@ namespace SnookerApiProject.Service {
         Friend FindFriendByNick(string nickName);
         Friend AddToFriend(Friend friend);
 
-        List<Friend> ListAllFriends();
     }
 }
