@@ -60,7 +60,10 @@ namespace SnookerApiProject.UserServiceImpl
 
         public PlayerProfile FindPlayerByNick(PlayerProfile playerProfile) {
 
-            var found = snookerEnt.UserProfile.SingleOrDefault(p => p.nickName == playerProfile.NickName);
+            var found = (from profile in snookerEnt.UserProfile
+                         where profile.nickName == playerProfile.NickName
+                         select profile).SingleOrDefault();
+
             if (found != null) {
                 if(found.isPublic == 1) {
                     playerProfile = new PlayerProfile {
