@@ -18,7 +18,6 @@ namespace SnookerApiProject.Models
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string nickName { get; set; }
-        public int isHidden { get; set; }
         public int isPublic { get; set; }
         public int isFriendsOnly { get; set; }
     }

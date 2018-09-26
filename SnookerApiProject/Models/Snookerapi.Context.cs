@@ -13,10 +13,10 @@ namespace SnookerApiProject.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SnookerAppEntities : DbContext
+    public partial class SnookerApiProject2_dbEntities : DbContext
     {
-        public SnookerAppEntities()
-            : base("name=SnookerAppEntities")
+        public SnookerApiProject2_dbEntities()
+            : base("name=SnookerApiProject2_dbEntities")
         {
         }
     
@@ -25,10 +25,10 @@ namespace SnookerApiProject.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Friends> Friends { get; set; }
         public virtual DbSet<History> History { get; set; }
         public virtual DbSet<Statistics> Statistics { get; set; }
         public virtual DbSet<TopTenBreaks> TopTenBreaks { get; set; }
         public virtual DbSet<UserProfile> UserProfile { get; set; }
-        public virtual DbSet<Friends> Friends { get; set; }
     }
 }

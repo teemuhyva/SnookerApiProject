@@ -8,7 +8,16 @@ using System.Web;
 namespace SnookerApiProject.UserServiceImpl {
     public class FriendsServiceImpl : IFriends {
 
-        SnookerAppEntities snookerEnt = new SnookerAppEntities();
+        SnookerApiProject2_dbEntities snookerEnt = new SnookerApiProject2_dbEntities();
+
+        public List<Friend> ListPreviousPlayers()
+        {
+            Friend friend = new Friend();
+            var playersList = (from pList in snookerEnt.Friends
+                              select pList).ToList();
+            var playerList = friend.ValueOf(playersList);
+            return playerList;
+        }
 
         public Friend FindFriendByNick(string nickName) {
             var found = snookerEnt.Friends.SingleOrDefault(p => p.friendNick == nickName);
@@ -18,24 +27,40 @@ namespace SnookerApiProject.UserServiceImpl {
                     LastName = found.friendLastName,
                     NickName = found.friendNick
                 };
-
-                return foundFriend;
+                return new Friend().ValueOf(found);                
             }
-            return new Friend().valueOf(found);
+
+            //return new friend object thats null
+            return new Friend();
+
         }
 
-        public Friend AddToFriend(Friend friend) {
-            var newFriend = new Friends {
-                friendFirstName = friend.FirstName,
-                friendLastName = friend.LastName,
-                friendNick = friend.NickName
-            };
+        public void AddToFriend(Friend friend) {
+            var alreadyFound = snookerEnt.Friends.SingleOrDefault(p => p.friendNick == friend.NickName);
 
-            snookerEnt.Friends.Add(newFriend);
-            snookerEnt.SaveChanges();
-
-            return friend;
+            if(alreadyFound == null)
+            {
+                var newFriend = new Friends
+                {
+                    friendFirstName = friend.FirstName,
+                    friendLastName = friend.LastName,
+                    friendNick = friend.NickName
+                };
+                snookerEnt.Friends.Add(newFriend);
+                snookerEnt.SaveChanges();
+            } else
+            {
+                throw new Exception("Friend already added");
+            }           
         }
 
+        public void DeleteFriend(Friend friend) {
+            var delFriend = snookerEnt.Friends.SingleOrDefault(p => p.friendNick == friend.NickName);
+
+            if(delFriend != null) {
+                snookerEnt.Friends.Remove(delFriend);
+                snookerEnt.SaveChanges();
+            }
+        }
     }
 }

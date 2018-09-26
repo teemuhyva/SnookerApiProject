@@ -11,24 +11,35 @@ namespace SnookerApiProject.Controllers
 {
     public class UsersController : ApiController
     {
-
-        private readonly IUsersService UserService;
-
-        public UsersController(IUsersService UserService) {
-            this.UserService = UserService;
+        public UsersController()
+        {
         }
 
+        private readonly IUsersService UserService;
+        private readonly IFriends FriendService;
+
+
+        public UsersController(IUsersService UserService, IFriends FriendService) {
+            this.UserService = UserService;
+            this.FriendService = FriendService;
+        }
+
+        
+        
+        [ActionName("findPlayerByNick")]
         public IHttpActionResult FindPlayerByNick(PlayerProfile playerProfile) {
             var result = UserService.FindPlayerByNick(playerProfile);
 
             return Ok(result);
         }
 
+        [ActionName("updatePlayer")]
         public IHttpActionResult Put(PlayerProfile user) {
             var result = UserService.UpdateUser(user);
             return Ok(result);
-        } 
+        }
 
+        [ActionName("registerPlayer")]
         public IHttpActionResult Post(PlayerProfile user) {
 
             if(!user.NickName.Equals("Quest")) {
@@ -38,10 +49,22 @@ namespace SnookerApiProject.Controllers
             return Ok(user);
         }
 
+        [ActionName("deletePlayer")]
         public IHttpActionResult Delete(PlayerProfile user) {
             var del = UserService.RemovePlayer(user);
 
             return Ok(del);
+        }
+
+        [ActionName("searchFriendAndAddAsFriend")]
+        public IHttpActionResult SearchAndAddFriend(PlayerProfile user)
+        {
+            Friend friend = new Friend();
+            var addFriend = UserService.FindPlayerByNick(user);
+
+            FriendService.AddToFriend(friend.ValueOf(addFriend));
+
+            return Ok();
         }
     }
 }

@@ -166,15 +166,15 @@
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="Models\SnookerApiEn.Context.tt">
+    <Content Include="Models\Snookerapi.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SnookerApiEn.edmx</DependentUpon>
-      <LastGenOutput>SnookerApiEn.Context.cs</LastGenOutput>
+      <DependentUpon>Snookerapi.edmx</DependentUpon>
+      <LastGenOutput>Snookerapi.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\SnookerApiEn.tt">
+    <Content Include="Models\Snookerapi.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SnookerApiEn.edmx</DependentUpon>
-      <LastGenOutput>SnookerApiEn.cs</LastGenOutput>
+      <DependentUpon>Snookerapi.edmx</DependentUpon>
+      <LastGenOutput>Snookerapi.cs</LastGenOutput>
     </Content>
     <Content Include="Web.config" />
   </ItemGroup>
@@ -194,36 +194,37 @@
     </Compile>
     <Compile Include="Models\Friend.cs" />
     <Compile Include="Models\Friends.cs">
-      <DependentUpon>SnookerApiEn.tt</DependentUpon>
+      <DependentUpon>Snookerapi.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\History.cs">
-      <DependentUpon>SnookerApiEn.tt</DependentUpon>
+      <DependentUpon>Snookerapi.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PlayerProfile.cs" />
-    <Compile Include="Models\SnookerApiEn.Context.cs">
+    <Compile Include="Models\PreviousPlayers.cs" />
+    <Compile Include="Models\Snookerapi.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SnookerApiEn.Context.tt</DependentUpon>
+      <DependentUpon>Snookerapi.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SnookerApiEn.cs">
+    <Compile Include="Models\Snookerapi.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SnookerApiEn.tt</DependentUpon>
+      <DependentUpon>Snookerapi.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SnookerApiEn.Designer.cs">
+    <Compile Include="Models\Snookerapi.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SnookerApiEn.edmx</DependentUpon>
+      <DependentUpon>Snookerapi.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Statistics.cs">
-      <DependentUpon>SnookerApiEn.tt</DependentUpon>
+      <DependentUpon>Snookerapi.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TopTenBreaks.cs">
-      <DependentUpon>SnookerApiEn.tt</DependentUpon>
+      <DependentUpon>Snookerapi.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UnityResolver.cs" />
     <Compile Include="Models\UserProfile.cs">
-      <DependentUpon>SnookerApiEn.tt</DependentUpon>
+      <DependentUpon>Snookerapi.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\FriendsService.cs" />
@@ -232,14 +233,15 @@
     <Compile Include="UserServiceImpl\ModifyUsers.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Models\SnookerApiEn.edmx">
+    <EntityDeploy Include="Models\Snookerapi.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SnookerApiEn.Designer.cs</LastGenOutput>
+      <LastGenOutput>Snookerapi.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\SnookerApiEn.edmx.diagram">
-      <DependentUpon>SnookerApiEn.edmx</DependentUpon>
+    <Content Include="Models\Snookerapi.edmx.diagram">
+      <DependentUpon>Snookerapi.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\SnookerApiProject - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -271,8 +273,7 @@
           <IISUrl>http://localhost:49873/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl>http://192.168.10.49:8080</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

@@ -9,7 +9,8 @@ namespace SnookerApiProject.Service {
     public interface IFriends {
 
         Friend FindFriendByNick(string nickName);
-        Friend AddToFriend(Friend friend);
-
+        void AddToFriend(Friend friend);
+        void DeleteFriend(Friend friend);
+        List<Friend> ListPreviousPlayers();
     }
 }

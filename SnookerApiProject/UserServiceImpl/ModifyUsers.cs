@@ -9,8 +9,8 @@ using System.Web;
 namespace SnookerApiProject.UserServiceImpl
 {
     public class ModifyUsers : IUsersService {
-        readonly SnookerAppEntities snookerEnt = new SnookerAppEntities();
-        
+        SnookerApiProject2_dbEntities snookerEnt = new SnookerApiProject2_dbEntities();
+
         public PlayerProfile RegisterNewUser(PlayerProfile user) {
             var profile = (from player in snookerEnt.UserProfile
                              where player.nickName == user.NickName
@@ -20,8 +20,7 @@ namespace SnookerApiProject.UserServiceImpl
                     firstName = user.FirstName,
                     lastName = user.LastName,
                     nickName = user.NickName,
-                    isHidden = 0,
-                    isPublic = 0,
+                    isPublic = 1,
                     isFriendsOnly = 0
                 };
 
@@ -47,8 +46,14 @@ namespace SnookerApiProject.UserServiceImpl
             var checkUser = snookerEnt.UserProfile.SingleOrDefault(p => p.nickName == user.NickName);
             
             if(checkUser != null) {
+                PlayerProfile profile = new PlayerProfile();
+                profile.CheckEmptyFields(user, checkUser);
                 var updatedPlayer = new UserProfile {
-                    nickName = user.NickName
+                    firstName = profile.FirstName,
+                    lastName = profile.LastName,                    
+                    nickName = user.NickName,
+                    isPublic = user.IsPublic,
+                    isFriendsOnly = user.IsFriendsOnly
                 };
 
                 snookerEnt.UserProfile.Add(checkUser);
@@ -67,7 +72,9 @@ namespace SnookerApiProject.UserServiceImpl
             if (found != null) {
                 if(found.isPublic == 1) {
                     playerProfile = new PlayerProfile {
-                        NickName = found.nickName
+                        NickName = found.nickName,
+                        FirstName = found.firstName,
+                        LastName = found.lastName
                     };
                 return playerProfile;
                 } else {
