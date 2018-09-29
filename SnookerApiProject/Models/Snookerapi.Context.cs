@@ -30,5 +30,7 @@ namespace SnookerApiProject.Models
         public virtual DbSet<Statistics> Statistics { get; set; }
         public virtual DbSet<TopTenBreaks> TopTenBreaks { get; set; }
         public virtual DbSet<UserProfile> UserProfile { get; set; }
+        public virtual DbSet<GameStatistics> GameStatistics { get; set; }
+        public virtual DbSet<RegisteredPlayers> RegisteredPlayers { get; set; }
     }
 }

@@ -181,6 +181,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\FriendsController.cs" />
+    <Compile Include="Controllers\GameScoreController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -189,6 +190,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="GameServiceImpl\GamesServiceImpl.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -196,11 +198,19 @@
     <Compile Include="Models\Friends.cs">
       <DependentUpon>Snookerapi.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GameStatistics.cs">
+      <DependentUpon>Snookerapi.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GameStats.cs" />
     <Compile Include="Models\History.cs">
       <DependentUpon>Snookerapi.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PlayerProfile.cs" />
     <Compile Include="Models\PreviousPlayers.cs" />
+    <Compile Include="Models\RegisteredPlayers.cs">
+      <DependentUpon>Snookerapi.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RegisterPlayer.cs" />
     <Compile Include="Models\Snookerapi.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -228,6 +238,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\FriendsService.cs" />
+    <Compile Include="Service\GamesService.cs" />
     <Compile Include="Service\UsersService.cs" />
     <Compile Include="UserServiceImpl\FriendsServiceImpl.cs" />
     <Compile Include="UserServiceImpl\ModifyUsers.cs" />

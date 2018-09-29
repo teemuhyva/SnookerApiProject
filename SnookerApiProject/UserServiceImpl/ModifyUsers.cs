@@ -11,7 +11,31 @@ namespace SnookerApiProject.UserServiceImpl
     public class ModifyUsers : IUsersService {
         SnookerApiProject2_dbEntities snookerEnt = new SnookerApiProject2_dbEntities();
 
-        public PlayerProfile RegisterNewUser(PlayerProfile user) {
+        public RegisterPlayer RegisterPlayer(RegisterPlayer player)
+        {
+            var playerFound = (from register in snookerEnt.RegisteredPlayers
+                               where register.email == player.Email && register.nickName == player.NickName
+                               select register).SingleOrDefault();
+
+            if(playerFound == null) 
+            {
+                var newRegistration = new RegisteredPlayers
+                {
+                    firstName = player.FirstName,
+                    lastName = player.LastName,
+                    nickName = player.NickName,
+                    email = player.Email,
+                    password = player.Password
+                };
+
+                snookerEnt.RegisteredPlayers.Add(newRegistration);
+                snookerEnt.SaveChanges();
+            }
+
+            return player;
+        }
+
+        public PlayerProfile AddNewPlayerProfile(PlayerProfile user) {
             var profile = (from player in snookerEnt.UserProfile
                              where player.nickName == user.NickName
                              select player).FirstOrDefault();
@@ -20,7 +44,7 @@ namespace SnookerApiProject.UserServiceImpl
                     firstName = user.FirstName,
                     lastName = user.LastName,
                     nickName = user.NickName,
-                    isPublic = 1,
+                    isPublic = user.IsPublic,
                     isFriendsOnly = 0
                 };
 

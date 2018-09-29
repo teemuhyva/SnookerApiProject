@@ -10,6 +10,8 @@
         <EntityTypeShape EntityType="SnookerApiProject2_dbModel.Statistics" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SnookerApiProject2_dbModel.TopTenBreaks" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SnookerApiProject2_dbModel.UserProfile" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SnookerApiProject2_dbModel.GameStatistics" Width="1.5" PointX="5.375" PointY="3.75" />
+        <EntityTypeShape EntityType="SnookerApiProject2_dbModel.RegisteredPlayers" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -9,7 +9,6 @@ namespace SnookerApiProject.Models {
         public String FirstName { get; set; }
         public String LastName { get; set; }
         public String NickName { get; set; }
-        public int IsHidden { get; set; }
         public int IsPublic { get; set; }
         public int IsFriendsOnly { get; set; }
 
@@ -29,6 +28,19 @@ namespace SnookerApiProject.Models {
             }
 
             return playerProfile;
+        }
+
+        public static PlayerProfile ValueOf(RegisterPlayer player)
+        {
+            PlayerProfile newPlayerProfile = new PlayerProfile
+            {
+                FirstName = player.FirstName,
+                LastName = player.LastName,
+                NickName = player.NickName,
+                IsPublic = 1
+            };
+
+            return newPlayerProfile;
         }
 
     }

@@ -17,8 +17,6 @@ namespace SnookerApiProject.Controllers
 
         private readonly IUsersService UserService;
         private readonly IFriends FriendService;
-
-
         public UsersController(IUsersService UserService, IFriends FriendService) {
             this.UserService = UserService;
             this.FriendService = FriendService;
@@ -39,14 +37,12 @@ namespace SnookerApiProject.Controllers
             return Ok(result);
         }
 
-        [ActionName("registerPlayer")]
-        public IHttpActionResult Post(PlayerProfile user) {
-
-            if(!user.NickName.Equals("Quest")) {
-                user = UserService.RegisterNewUser(user);
-            } 
-            
-            return Ok(user);
+        [ActionName("RegisterPlayer")]
+        public IHttpActionResult PostRegisterPlayer(RegisterPlayer registerPlayer)
+        {
+            var registerSuccess = UserService.RegisterPlayer(registerPlayer);
+            var addPlayerProfile = UserService.AddNewPlayerProfile(PlayerProfile.ValueOf(registerSuccess));
+            return Ok(addPlayerProfile);
         }
 
         [ActionName("deletePlayer")]

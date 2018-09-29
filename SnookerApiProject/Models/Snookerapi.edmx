@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SnookerApiProject2_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SnookerApiProject2_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Friends">
           <Key>
             <PropertyRef Name="playerId" />
@@ -13,6 +13,22 @@
           <Property Name="friendFirstName" Type="nvarchar" MaxLength="50" />
           <Property Name="friendLastName" Type="nvarchar" MaxLength="100" />
           <Property Name="friendNick" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="GameStatistics">
+          <Key>
+            <PropertyRef Name="gameId" />
+          </Key>
+          <Property Name="gameId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="player1" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="player2" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BestOf" Type="int" />
+          <Property Name="scorePlayer1" Type="int" Nullable="false" />
+          <Property Name="scorePlayer2" Type="int" Nullable="false" />
+          <Property Name="topBreakPlayer1" Type="int" Nullable="false" />
+          <Property Name="topBreakPlayer2" Type="int" Nullable="false" />
+          <Property Name="winningPlayer" Type="nvarchar" MaxLength="50" />
+          <Property Name="gameNumber" Type="int" Nullable="false" />
+          <Property Name="gameDate" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="History">
           <Key>
@@ -25,6 +41,17 @@
           <Property Name="round" Type="int" />
           <Property Name="playerId" Type="int" Nullable="false" />
           <Property Name="gameDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RegisteredPlayers">
+          <Key>
+            <PropertyRef Name="registerId" />
+          </Key>
+          <Property Name="registerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="nickName" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="Statistics">
           <Key>
@@ -71,13 +98,14 @@
         </EntityType>
         <EntityContainer Name="SnookerApiProject2_dbModelStoreContainer">
           <EntitySet Name="Friends" EntityType="Self.Friends" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GameStatistics" EntityType="Self.GameStatistics" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="History" EntityType="Self.History" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegisteredPlayers" EntityType="Self.RegisteredPlayers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Statistics" EntityType="Self.Statistics" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TopTenBreaks" EntityType="Self.TopTenBreaks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SnookerApiProject2_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -151,7 +179,36 @@
           <EntitySet Name="Statistics" EntityType="Self.Statistics" />
           <EntitySet Name="TopTenBreaks" EntityType="Self.TopTenBreaks" />
           <EntitySet Name="UserProfile" EntityType="Self.UserProfile" />
+          <EntitySet Name="GameStatistics" EntityType="SnookerApiProject2_dbModel.GameStatistics" />
+          <EntitySet Name="RegisteredPlayers" EntityType="SnookerApiProject2_dbModel.RegisteredPlayers" />
         </EntityContainer>
+        <EntityType Name="GameStatistics">
+          <Key>
+            <PropertyRef Name="gameId" />
+          </Key>
+          <Property Name="gameId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="player1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="player2" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BestOf" Type="Int32" />
+          <Property Name="scorePlayer1" Type="Int32" Nullable="false" />
+          <Property Name="scorePlayer2" Type="Int32" Nullable="false" />
+          <Property Name="topBreakPlayer1" Type="Int32" Nullable="false" />
+          <Property Name="topBreakPlayer2" Type="Int32" Nullable="false" />
+          <Property Name="winningPlayer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="gameNumber" Type="Int32" Nullable="false" />
+          <Property Name="gameDate" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="RegisteredPlayers">
+          <Key>
+            <PropertyRef Name="registerId" />
+          </Key>
+          <Property Name="registerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="nickName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -220,6 +277,35 @@
                 <ScalarProperty Name="nickName" ColumnName="nickName" />
                 <ScalarProperty Name="isPublic" ColumnName="isPublic" />
                 <ScalarProperty Name="isFriendsOnly" ColumnName="isFriendsOnly" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GameStatistics">
+            <EntityTypeMapping TypeName="SnookerApiProject2_dbModel.GameStatistics">
+              <MappingFragment StoreEntitySet="GameStatistics">
+                <ScalarProperty Name="gameDate" ColumnName="gameDate" />
+                <ScalarProperty Name="gameNumber" ColumnName="gameNumber" />
+                <ScalarProperty Name="winningPlayer" ColumnName="winningPlayer" />
+                <ScalarProperty Name="topBreakPlayer2" ColumnName="topBreakPlayer2" />
+                <ScalarProperty Name="topBreakPlayer1" ColumnName="topBreakPlayer1" />
+                <ScalarProperty Name="scorePlayer2" ColumnName="scorePlayer2" />
+                <ScalarProperty Name="scorePlayer1" ColumnName="scorePlayer1" />
+                <ScalarProperty Name="BestOf" ColumnName="BestOf" />
+                <ScalarProperty Name="player2" ColumnName="player2" />
+                <ScalarProperty Name="player1" ColumnName="player1" />
+                <ScalarProperty Name="gameId" ColumnName="gameId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegisteredPlayers">
+            <EntityTypeMapping TypeName="SnookerApiProject2_dbModel.RegisteredPlayers">
+              <MappingFragment StoreEntitySet="RegisteredPlayers">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="nickName" ColumnName="nickName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="registerId" ColumnName="registerId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

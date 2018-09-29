@@ -1,4 +1,6 @@
-﻿using SnookerApiProject.Models;
+﻿
+using SnookerApiProject.GamesServImpl;
+using SnookerApiProject.Models;
 using SnookerApiProject.Service;
 using SnookerApiProject.UserServiceImpl;
 using System;
@@ -16,6 +18,7 @@ namespace SnookerApiProject
             var container = new UnityContainer();
             container.RegisterType<IUsersService, ModifyUsers>();
             container.RegisterType<IFriends, FriendsServiceImpl>();
+            container.RegisterType<IGamesService, GameServiceImpl>();
             config.DependencyResolver = new UnityResolver(container);
 
             config.MapHttpAttributeRoutes();
